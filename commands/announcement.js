@@ -1,6 +1,5 @@
 
 const bot = require("../bot");
-const manager = require("./cmdmanager");
 
 function start(data, messago){
     data.shift();
@@ -16,7 +15,6 @@ function start(data, messago){
 
 function send(channel, message){
     bot.client.channels.get(channel.toString()).send(message);
-    manager.command_reply("Wiadomość poszła w świat!");
 }
 
 module.exports.start = start;

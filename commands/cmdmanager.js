@@ -1,11 +1,7 @@
 
 const annoucement = require("./announcement");
 const c = require("../misc/config");
-const bot = require("../bot");
 
-module.exports.command_reply = (message) => {
-    bot.client.channels.get(c.config.command_channel).send(message);
-};
 
 function manage(command_data,messageo){
     if(!messageo.member.roles.has(c.config.admin_role)){
