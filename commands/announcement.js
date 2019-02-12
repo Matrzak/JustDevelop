@@ -1,11 +1,12 @@
 
 const bot = require("../bot");
+const manager = require("./cmdmanager");
 
-function start(data, messago){
+function start(data,recived_data){
     data.shift();
+    console.log(data);
     let channelid = data[0];
-    if(bot.client.channels.get(channelid.toString()) === undefined){
-        messago.reply("Podałeś zły kanał");
+    if(!manager.isChannelExists(channelid,recived_data)){
         return;
     }
     data.shift();
