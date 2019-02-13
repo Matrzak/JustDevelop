@@ -23,7 +23,7 @@ function TriggerBroadcasts(){
                 broadcasts_array.sort(() => { return 0.5 - Math.random() });
                 index = 0;
             }
-            bot.client.channels.get(c.config.main_channel.toString()).send(broadcasts_array[index]);
+            bot.client.channels.get(c.config.main_channel.toString()).send("\n**WIADOMOSC GENEROWANA AUTOMATYCZNIE**\n"+broadcasts_array[index]);
             index++;
        }
     }, 300000);
