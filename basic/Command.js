@@ -1,5 +1,9 @@
+
+const DiscordOption = require("./DiscordOptions");
+const c = require("../misc/config");
+
 class Command {
-    constructor(cmd, description, role, activity, usage){
+    constructor(cmd, description, role, activity){
         this.cmd = cmd;
         this.description = description;
         this.role = role;
@@ -22,8 +26,12 @@ class Command {
                 }
             }
             if(!pass){
-                this.request.reply("Nie masz odopowiednich uprawnien!");
-                return;
+                if(DiscordOption.testing_state && this.request.member.roles.has(c.config.tester_role)){
+                    this.request.channel.send("Ignoruje uprawnienia, tryb testowania uruchomiony 🎉🎉")
+                } else {
+                    this.request.reply("Nie masz odopowiednich uprawnien!");
+                    return;
+                }
             }
         }
         this.activity(this.arg,this.request);

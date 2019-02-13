@@ -3,7 +3,7 @@ const DiscordOptions = require("../../basic/DiscordOptions");
 
 async function init(arguments, request){
     if(arguments.length !== 1) {
-        request.reply("Podaleś za mało argumentów");
+        request.reply("Ta komenda obsluguje jeden argument!");
         request.channel.send("Poprawne użycie **!clear channel_id **");
         return;
     }
