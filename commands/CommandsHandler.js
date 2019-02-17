@@ -27,20 +27,9 @@ const commands = [
     new cmd.Command("help", "Informuje o dostepnych komendach", undefined, help.init),
 ];
 
-function getAdminCommand(command){
+function getCommand(command,array){
     let return_value = null;
-    acommands.map((x) => {
-        let c = x.cmd.toString();
-        if(c === command.toString()){
-            return_value = x;
-        }
-    });
-    return return_value;
-}
-
-function getCommand(command){
-    let return_value = null;
-    commands.map((x) => {
+    array.map((x) => {
         let c = x.cmd.toString();
         if(c === command.toString()){
             return_value = x;
@@ -50,6 +39,5 @@ function getCommand(command){
 }
 
 module.exports.getCommand = getCommand;
-module.exports.getAdminCommand = getAdminCommand;
 module.exports.commands = commands;
 module.exports.acommands = acommands;

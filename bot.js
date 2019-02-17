@@ -9,7 +9,6 @@ const DiscordOptions = require("./basic/DiscordOptions");
 client.on('ready', () => {
   console.log(`Poprawnie polaczono z => ${client.user.tag}!`);
   broadcast.triggerBroadcasts();
-  let x = "dg1";
 });
 
 client.on('messageDelete', deleted => {
@@ -32,12 +31,12 @@ client.on('message', msg => {
    let values = command_name.split(" ");
    let command = null;
    if(msg.channel.id == c.config.command_channel){
-       command = handler.getAdminCommand(values[0].toString().substr(1));
+       command = handler.getCommand(values[0].toString().substr(1), handler.acommands);
        if(command === null){
-           command = handler.getCommand(values[0].toString().substr(1));
+           command = handler.getCommand(values[0].toString().substr(1), handler.commands);
        }
    } else {
-       command = handler.getCommand(values[0].toString().substr(1));
+       command = handler.getCommand(values[0].toString().substr(1), handler.commands);
    }
    if(command === undefined || command === null){
       msg.author.send("Taka komenda nie istnieje! 😪😪😪 \nSprawdź dostepne komendy używając !help");
