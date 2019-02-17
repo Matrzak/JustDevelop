@@ -3,13 +3,24 @@ const client = new Discord.Client();
 
 const c = require("./misc/config");
 const handler = require("./commands/CommandsHandler");
+const broadcast = require("./commands/admin/broadcast");
 const DiscordOptions = require("./basic/DiscordOptions");
-
 
 client.on('ready', () => {
   console.log(`Poprawnie polaczono z => ${client.user.tag}!`);
-  console.log(`Rozpoczynam wysylanie ogloszen!`);
-  DiscordOptions.TriggerBroadcasts();
+  broadcast.triggerBroadcasts();
+  let x = "dg1";
+});
+
+client.on('messageDelete', deleted => {
+    if(!DiscordOptions.isChannelExists(c.config.logs_channel)) return;
+    let date = new Date();
+    let utc = date.toJSON().slice(0,10).replace(/-/g,'/');
+    let time = [date.getHours(),date.getMinutes(),date.getSeconds()];
+    client.channels.get(c.config.logs_channel.toString()).send(
+        "Wiadomość użytkownika **"+deleted.author.tag+"** została usunięta\n" +
+        " **Treść: ** "+deleted+"\n **Kanał: **" + deleted.channel.name + "\n **Data: **" + utc +"\n" +
+        " **Godzina: ** "+ time[0]+":"+time[1]+":"+time[2]);
 });
 
 client.on('message', msg => {

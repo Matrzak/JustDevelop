@@ -6,6 +6,8 @@ module.exports = {
         tester_role: "545021791010160656",
         command_channel: "544956188702408742",
         main_channel: "545343388506128394",
+        error_channel: "546753392979214337",
+        logs_channel: "545367344982261760",
 
     },
     rangs: {
