@@ -8,9 +8,11 @@ module.exports = {
         main_channel: "545343388506128394",
         error_channel: "546753392979214337",
         logs_channel: "545367344982261760",
+        rules_accept_channel: "544650844252012564",
 
     },
     rangs: {
+       registered: "544656700712550420",
        dg1: "544653169578344470",
        dg2: "",
     },

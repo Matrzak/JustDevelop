@@ -5,21 +5,35 @@ const c = require("./misc/config");
 const handler = require("./commands/CommandsHandler");
 const broadcast = require("./commands/admin/broadcast");
 const DiscordOptions = require("./basic/DiscordOptions");
+const MessageHandler = require("./basic/MessageHandler");
 
 client.on('ready', () => {
   console.log(`Poprawnie polaczono z => ${client.user.tag}!`);
   broadcast.triggerBroadcasts();
 });
 
+client.on('guildMemberAdd', member => {
+    MessageHandler.welcomeUser(member);
+});
+
+client.on('message', message => {
+   if(message.author.bot) return;
+   if(message.toString() === "akceptuje"){
+       message.member.addRole(c.rangs.registered);
+       MessageHandler.welcomeMember(message.author);
+   }
+   message.delete();
+});
+
+client.on('messageUpdate', (oldMessage, newMessage) => {
+    if(!DiscordOptions.isChannelExists(c.config.logs_channel)) return;
+    MessageHandler.sendChangeLog(oldMessage,newMessage);
+});
+
 client.on('messageDelete', deleted => {
     if(!DiscordOptions.isChannelExists(c.config.logs_channel)) return;
-    let date = new Date();
-    let utc = date.toJSON().slice(0,10).replace(/-/g,'/');
-    let time = [date.getHours(),date.getMinutes(),date.getSeconds()];
-    client.channels.get(c.config.logs_channel.toString()).send(
-        "Wiadomość użytkownika **"+deleted.author.tag+"** została usunięta\n" +
-        " **Treść: ** "+deleted+"\n **Kanał: **" + deleted.channel.name + "\n **Data: **" + utc +"\n" +
-        " **Godzina: ** "+ time[0]+":"+time[1]+":"+time[2]);
+    if(deleted.channel.id == c.config.rules_accept_channel) return;
+    MessageHandler.sendDeleteLog(deleted);
 });
 
 client.on('message', msg => {
@@ -28,6 +42,7 @@ client.on('message', msg => {
    if(!command_name.startsWith("!")){
       return;
    }
+   if(msg.channel.id == c.config.rules_accept_channel) return;
    let values = command_name.split(" ");
    let command = null;
    if(msg.channel.id == c.config.command_channel){
