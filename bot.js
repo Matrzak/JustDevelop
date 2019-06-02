@@ -19,10 +19,10 @@ client.on('guildMemberAdd', member => {
 client.on('message', message => {
    if(message.author.bot) return;
    if(message.toString() === "akceptuje"){
-       message.member.addRole(c.rangs.registered);
+       message.author.member.addRole(c.rangs.registered);
        MessageHandler.welcomeMember(message.author);
-   }
-   message.delete();
+       message.delete();
+    }
 });
 
 client.on('messageUpdate', (oldMessage, newMessage) => {

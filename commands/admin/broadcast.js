@@ -36,7 +36,7 @@ function triggerBroadcasts(){
     broadcasts_array.sort(() => { return 0.5 - Math.random() });
     setInterval(() => {
         sendBroadcast();
-    }, 15000);
+    }, 900000);
 }
 
 function sendBroadcast(){

@@ -10,17 +10,7 @@ function init(arguments, request){
     DiscordOptions.testing_state === true ?
         DiscordOptions.testing_state = false : DiscordOptions.testing_state = true;
 
-
-    switch(DiscordOptions.testing_state){
-        case true:
-            message = "uruchomiony! 🔥";
-            break;
-        case false:
-            message = "wyłączony! 😨";
-            break;
-    }
-
-    request.reply("Tryb testowania został " + message)
+    request.reply("Tryb testowania został " + DiscordOptions.testing_state === true ? "uruchomiony! 🔥" : "wyłączony! 😨");
 
 }
 
